@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_flavor_config (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_flavor_config (from `.symlinks/plugins/flutter_flavor_config/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_flavor_config:
+    :path: ".symlinks/plugins/flutter_flavor_config/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_flavor_config: f33234eaa3ee2046bc94a37e2eebca1d580dcec4
+
+PODFILE CHECKSUM: 78c82233f3cbe83f3a87ba5d384ed53bb41daf05
+
+COCOAPODS: 1.16.2

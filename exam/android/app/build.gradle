@@ -1,0 +1,97 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+project.ext.envConfigFiles = [
+        developdebug: ".env.develop",
+        productiondebug: ".env.production",
+        uatdebug: ".env.uat",
+        developrelease: ".env.develop",
+        productionrelease: ".env.production",
+        uatrelease: ".env.uat",
+]
+
+apply from: project(':flutter_flavor_config').projectDir.getPath() + "/dotenv.gradle"
+
+android {
+    namespace "com.example.exam"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        develop {
+            applicationId 'com.exam.develop'
+            versionName "1.0.0"
+            resValue "string", "app_name", "develop"
+        }
+        uat {
+            applicationId 'com.exam.uat'
+            versionName "1.0.0"
+            resValue "string", "app_name", "uat"
+        }
+        production {
+            applicationId 'com.exam.production'
+            versionName "1.0.0"
+            resValue "string", "app_name", "production"
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.example.exam"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        resValue "string", "build_config_package", "com.example.exam"
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {}
