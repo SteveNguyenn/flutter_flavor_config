@@ -1,6 +1,5 @@
 package com.byneapp.flutter_flavor_config
 
-import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import androidx.annotation.NonNull
@@ -10,7 +9,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.lang.IllegalArgumentException
 import java.lang.reflect.Field
 
@@ -29,14 +27,6 @@ class FlutterFlavorConfigPlugin(private val context: Context? = null) : FlutterP
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
     applicationContext = null
-  }
-
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "flutter_flavor_config")
-      channel.setMethodCallHandler(FlutterFlavorConfigPlugin(registrar.activity()))
-    }
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
